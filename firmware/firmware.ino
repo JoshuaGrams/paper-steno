@@ -27,7 +27,7 @@ const byte key_info[COLUMNS][ROWS][2] = {
   {{3, 2}, {3, 3}, {2, 1}, {2, 0}, {0, 1}, {0, 2}}   // -D -Z -R -F T- K-
 };
 
-void read_debounced_keys(byte *out) {
+void read_debounced_keys_into(byte *out) {
   static byte past_keys[CHECKS][STROKE_BYTES];
   static byte index = 0;
 
@@ -76,19 +76,25 @@ void send_keys(byte *keys) {
 // -----------------------------------------------------------------------------
 // Stroke helper functions
 
-boolean any_pressed(byte *keys) {
-  for(byte i=0; i<STROKE_BYTES; ++i)  if(keys[i]) return true;
+boolean any_released(const byte *prev, const byte *cur, byte *ignore) {
+  for(byte i=0; i<STROKE_BYTES; ++i) {
+    byte changed = (prev[i] ^ cur[i]) & ~ignore[i];
+    if(prev[i] & changed) return true;  // the ones that were down (now up)
+  }
   return false;
 }
 
-void accumulate_keys(byte *accum, const byte *keys) {
-  for(byte i=0; i<STROKE_BYTES; ++i)  accum[i] |= keys[i];
+void remove_ups(byte *ignore, const byte *cur) {
+  for(byte i=0; i<STROKE_BYTES; ++i)  ignore[i] &= cur[i];
+}
+
+void set_keys(byte *dst, const byte *src) {
+  for(byte i=0; i<STROKE_BYTES; ++i)  dst[i] = src[i];
 }
 
 void clear_keys(byte *keys) {
   for(byte i=0; i<STROKE_BYTES; ++i)  keys[i] = 0;
 }
-
 
 // -----------------------------------------------------------------------------
 // Initialization and main loop.
@@ -100,12 +106,13 @@ void setup() {
 }
 
 void loop() {
-  static byte keys[STROKE_BYTES], stroke[STROKE_BYTES];
-  read_debounced_keys(keys);
-  if(any_pressed(keys)) accumulate_keys(stroke, keys);
-  else if(any_pressed(stroke)) {
-    send_keys(stroke);
-    clear_keys(stroke);
-  }
+  static byte keys[STROKE_BYTES], prev_keys[STROKE_BYTES];
+  static byte ignore[STROKE_BYTES];
+  read_debounced_keys_into(keys);
+  if(any_released(prev_keys, keys, ignore)) {
+    send_keys(prev_keys);
+    set_keys(ignore, keys);
+  } else remove_ups(ignore, keys);
+  set_keys(prev_keys, keys);
   delay(CHECK_MS);
 }
