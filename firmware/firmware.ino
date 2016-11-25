@@ -21,6 +21,9 @@ byte row_pins[ROWS] = {6, 7, 8, 9, 10, 11};
 
 // map (col, row) to (byte, bit) of TX Bolt stroke.
 const byte key_info[COLUMNS][ROWS][2] = {
+  // We use the top half of the `S-` key as the number "bar".
+  // If you don't need it, you can change the `{3, 4}` in the
+  // first line to `{0, 0}` to make it another `S-`.
   {{2, 2}, {2, 3}, {3, 5}, {1, 3}, {3, 4}, {0, 0}},  // -P -B --  *  # S-
   {{2, 4}, {2, 5}, {1, 2}, {1, 1}, {0, 5}, {1, 0}},  // -L -G  O  A H- R-
   {{3, 0}, {3, 1}, {1, 5}, {1, 4}, {0, 3}, {0, 4}},  // -T -S  U  E P- W-
