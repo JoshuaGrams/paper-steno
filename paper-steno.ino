@@ -17,17 +17,45 @@ byte row_pins[ROWS] = {6, 7, 8, 9, 10, 11};
 
 
 // -----------------------------------------------------------------------------
+// TX Bolt byte/bit pairs: `ST` = star, `NN` = number bar, `XX` = none.
+
+#define S_ {0, 0}
+#define T_ {0, 1}
+#define K_ {0, 2}
+#define P_ {0, 3}
+#define W_ {0, 4}
+#define H_ {0, 5}
+#define R_ {1, 0}
+#define  A {1, 1}
+#define  O {1, 2}
+#define ST {1, 3}
+#define  E {1, 4}
+#define  U {1, 5}
+#define _F {2, 0}
+#define _R {2, 1}
+#define _P {2, 2}
+#define _B {2, 3}
+#define _L {2, 4}
+#define _G {2, 5}
+#define _T {3, 0}
+#define _S {3, 1}
+#define _D {3, 2}
+#define _Z {3, 3}
+#define NN {3, 4}
+#define XX {3, 5}
+
+
+// -----------------------------------------------------------------------------
 // Key Input and Debouncing
 
 // map (col, row) to (byte, bit) of TX Bolt stroke.
 const byte key_info[COLUMNS][ROWS][2] = {
   // We use the top half of the `S-` key as the number "bar".
-  // If you don't need it, you can change the `{3, 4}` in the
-  // first line to `{0, 0}` to make it another `S-`.
-  {{2, 2}, {2, 3}, {3, 5}, {1, 3}, {3, 4}, {0, 0}},  // -P -B --  *  # S-
-  {{2, 4}, {2, 5}, {1, 2}, {1, 1}, {0, 5}, {1, 0}},  // -L -G  O  A H- R-
-  {{3, 0}, {3, 1}, {1, 5}, {1, 4}, {0, 3}, {0, 4}},  // -T -S  U  E P- W-
-  {{3, 2}, {3, 3}, {2, 1}, {2, 0}, {0, 1}, {0, 2}}   // -D -Z -R -F T- K-
+  // If you don't need it, you can change it back to another `lS`.
+  {_P, _B, XX, ST, NN, S_},
+  {_L, _G,  O,  A, H_, R_},
+  {_T, _S,  U,  E, P_, W_},
+  {_D, _Z, _R, _F, T_, K_}
 };
 
 void read_debounced_keys_into(byte *out) {
