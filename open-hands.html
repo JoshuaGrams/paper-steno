@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Paper Steno for Open Hands (Thumbs Out)</title>
+	<script src="show-layers.js"></script>
+	<style>
+		@page { size: landscape;  margin: 0.3in; }
+		@media print {
+			body { font-size: smaller; }
+			object { margin-top: 1in; }
+		}
+		ol { width: 44%; }
+		li { padding-top: 0.3em; }
+		table { width: 30%;  border-collapse: collapse;  margin-right: 1em; }
+		table, th, td { border: 0.01in solid black; }
+		.center { text-align: center;  clear: both; }
+	</style>
+</head>
+<body>
+
+	<!-- TODO - Crimping diagram.  Lay diode along edge, cut
+		 diagonally from end of wire back toward body of diode.
+		 Fold it over wire and wrap it so the point is toward
+		 the end of the wire. -->
+
+	<div id="diagrams" style="float:right;  width: 50%;  margin-top: 0;  padding-top: 0;">
+
+	<h3 class="center" style="margin-top: 0">Wire Colors</h3>
+
+	<table style="float:right;  width:40%">
+		<tr><th>Pin#</th><th>Color</th></tr>
+		<caption>Backing Groups</caption>
+		<tr><th>6</th><td>&nbsp;</td></tr>
+		<tr><th>7</th><td>&nbsp;</td></tr>
+		<tr><th>8</th><td>&nbsp;</td></tr>
+		<tr><th>9</th><td>&nbsp;</td></tr>
+		<tr><th>10</th><td>&nbsp;</td></tr>
+		<tr><th>11</th><td>&nbsp;</td></tr>
+	</table>
+
+	<table style="float:right;  width:40%">
+		<caption>Key Groups</caption>
+		<tr><th>Pin#</th><th>Color</th></tr>
+		<tr><th>2</th><td>&nbsp;</td></tr>
+		<tr><th>3</th><td>&nbsp;</td></tr>
+		<tr><th>4</th><td>&nbsp;</td></tr>
+		<tr><th>5</th><td>&nbsp;</td></tr>
+	</table>
+
+	<h3 class="center" style="padding-top: 1em">Tools and Materials</h3>
+
+	<ul>
+		<li>Aluminum foil, approx. 10 x 10 inches.</li>
+		<li>Corrugated cardboard, 6 x 10 inches (not too thick).</li>
+		<li>23 small signal diodes.</li>
+		<li>Small jewellry crimp beads.</li>
+		<li>A short length of ethernet cable.</li>
+		<li>A glue stick.</li>
+		<li>A craft knife, straight-edge, and cutting mat.</li>
+		<li>Scissors.</li>
+		<li>Needlenose pliers (for crimping connectors).</li>
+		<li>Tweezers (for wrapping foil around wires).</li>
+	</ul>
+
+	</div>
+
+	<div>
+	<h3>Assembly Instructions</h3>
+
+	<ol>
+	
+		<li>Print the first three pattern pages on paper.  Glue
+		aluminum foil to the two foil pages.  You don't have to
+		use the entire sheet of paper, but leave enough extra
+		around the edges to hold onto when you're cutting out
+		the pieces later.  Glue the spacer page to a sheet of
+		corrugated cardboard.</li>
+
+		<li>Print the other two pattern pages on card stock.  Cut
+		out the black parts on the first one to allow the key
+		tabs to flex.</li>
+	
+		<li>Take the backing card and its associated foil page.
+		Cut out the foil pieces.  Start with the innermost one
+		and work your way outwards.  Trim the inside edge of
+		each piece <em>before</em> you cut it off the sheet so
+		you're not working on the inside edge of a tiny skinny
+		piece of material.  Glue the pieces to the card, paper
+		side down, foil side showing.</li>
+
+		<li>Take a piece of ethernet cable. Choose six wires and
+		strip both ends.  Cut the other two wires off short.
+		Crimp the wires to the foil pieces, writing the wire
+		colors on the chart to the right.</li>
+
+		<li>Take the key card and its associated foil page.  Cut
+		out the foil pieces and glue the paper side to the
+		card.</li>
+
+		<li>Connect each key to its connector bar with a diode
+		and two crimp connectors. The marked end of the diode
+		should point toward the key.</li>
+
+		<li>Take the other piece of ethernet cable, strip four
+		of the wires and cut off the other four.  Crimp them to
+		the connector bars, writing the wire colors on the chart
+		to the right.</li>
+
+		<li>Cut out the spacer (the dark bits below the bottom
+		keys are angled ramps for your thumbs).  Cut grooves for
+		the cables to exit.</li>
+		
+		<li>Cut the backing card to size and glue all three
+		layers together.  Cut flaps on the top card to fold
+		around and finish the edges.</li>
+
+		<li>Connect the wires to pins 2-11 of an Arduino
+		Uno.</li>
+
+	</ol>
+	</div>
+
+
+	<object id="key-foil" data="open-hands.svg" type="image/svg+xml" style="width:10in; height:5.25in;"></object>
+	<script>showLayers('key-foil', 'Key Foil')</script>
+
+	<object id="backing-foil" data="open-hands.svg" type="image/svg+xml" style="transform: scale(-1, 1); width:10in; height:5.25in;"></object>
+	<script>showLayers('backing-foil', 'Backing Foil')</script>
+
+	<object id="spacer" data="open-hands.svg" type="image/svg+xml" style="width:10in; height:5.25in;"></object>
+	<script>showLayers('spacer', 'Spacer')</script>
+
+
+	<object id="key-card" data="open-hands.svg" type="image/svg+xml" style="transform:scale(-1,1); width:10in; height:5.25in;"></object>
+	<script>showLayers('key-card', {'Key Cuts': true, 'Key Foil': 0.1, 'Keys': 0.2})</script>
+
+	<object id="backing-card" data="open-hands.svg" type="image/svg+xml" style="width:10in; height:5.25in;"></object>
+	<script>showLayers('backing-card', 'Backing Foil')</script>
+
+
+</body>
+</html>
